@@ -1,20 +1,26 @@
 package com.garena.game.myapplication;
 
+
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.garena.game.myapplication.databinding.ActivityMainBinding;
 
+import java.util.Arrays;
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
 
     // Used to load the 'myapplication' library on application startup.
     static {
-        System.loadLibrary("myapplication");
+        System.loadLibrary("hello_jni");
     }
 
     private ActivityMainBinding binding;
+    private static final String TAG = "Hello_JNI";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +33,15 @@ public class MainActivity extends AppCompatActivity {
         TextView tv = binding.sampleText;
         tv.setText(getStringFromC("hello c"));
 
+        tv.setOnClickListener(v -> {
+            Random random = new Random(5);
+            int[] a = new int[3];
+            for (int i = 0; i < 3; i++) {
+                a[i] = random.nextInt(9);
+            }
+            Log.d(TAG, Arrays.toString(a));
+            testArray(a);
+        });
 
     }
 
@@ -39,8 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     public native String getStringFromC(String str);
 
-
-    public native void OnCameraStart(int cameraId, int previewWidth, int previewHeight, int cameraRotation);
+    public native void testArray(int[] testArray);
 
 
 }
