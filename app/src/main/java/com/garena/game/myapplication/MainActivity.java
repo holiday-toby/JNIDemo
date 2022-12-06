@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Example of a call to a native method
         TextView tv = binding.sampleText;
-        tv.setText(getStringFromC("hello c"));
+        tv.setText(getStringFromC("hello from java!"));
 
         tv.setOnClickListener(v -> {
             Random random = new Random(5);
@@ -41,10 +41,11 @@ public class MainActivity extends AppCompatActivity {
             }
             Log.d(TAG, Arrays.toString(a));
             testArray(a);
+
+            new CallJava().callVoidMethod();
         });
 
     }
-
 
     /**
      * A native method that is implemented by the 'myapplication' native library,
@@ -55,6 +56,14 @@ public class MainActivity extends AppCompatActivity {
     public native String getStringFromC(String str);
 
     public native void testArray(int[] testArray);
+
+    public native String concatString(String a, String b);
+
+    public native int compareString(String a, String b);
+
+    public native int sumArray(int[] array);
+
+
 
 
 }
